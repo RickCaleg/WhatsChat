@@ -1,0 +1,140 @@
+.box-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+html {
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+html *:focus {
+  outline: none;
+}
+html body {
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  background-color: #ece5dd;
+}
+@media (min-width: 768px) {
+  html body {
+    grid-template-areas: 'header header header header header' 'nav main main main main' 'nav footer footer footer footer';
+    grid-template-rows: auto 1fr auto;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  html body {
+    grid-template-areas: 'header header header header header' 'nav main main main main' 'nav footer footer footer footer';
+    grid-template-rows: auto 1fr auto;
+  }
+}
+@media (max-width: 575px) {
+  html body {
+    grid-template-areas: 'header header header header header header header' 'nav main main main main main main' 'nav footer footer footer footer footer footer';
+    grid-template-rows: auto 1fr auto;
+  }
+}
+html body header {
+  grid-area: header;
+  background-color: #075e54;
+  color: #ece5dd;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+html body nav {
+  grid-area: nav;
+  background-color: #ffffff;
+  overflow: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+html body nav .item {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  cursor: default;
+}
+html body nav .item:hover {
+  background-color: #f2f2f2;
+  transition: 0.25s;
+}
+html body nav .item .foto {
+  flex-shrink: 0;
+  margin-right: 5px;
+  height: 40px;
+  width: 40px;
+  border-radius: 999px;
+  background-color: #075e54;
+}
+html body nav .item .nome {
+  color: #333;
+}
+html body main {
+  grid-area: main;
+  padding: 10px 17px;
+  overflow: auto;
+}
+html body main .mensagem {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 15px;
+  padding: 7px 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+html body main .mensagem:before {
+  content: "\A";
+  border-style: solid;
+  border-width: 0px 7px 10px 0;
+  border-color: transparent #ffffff transparent transparent;
+  position: absolute;
+  top: 0;
+  left: -7px;
+}
+html body main .mensagem .nome {
+  font-size: 13px;
+  color: #128c7e;
+  margin-bottom: 5px;
+}
+html body main .mensagem .conteudo {
+  font-size: 14px;
+}
+html body footer {
+  grid-area: footer;
+  padding: 10px;
+  display: flex;
+}
+html body footer input.mensagem {
+  flex-grow: 1;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+html body footer button.enviar {
+  border: none;
+  margin-left: 5px;
+  height: 40px;
+  width: 40px;
+  border-radius: 99999999999px;
+  background-color: #128c7e;
+  background-image: url(/content/img/send.svg);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+html body footer button.enviar:hover {
+  background-color: #0ca594;
+  transition: 0.25s;
+}
+html body footer button.enviar:active {
+  background-color: #075e54;
+  transition: 0s;
+}
