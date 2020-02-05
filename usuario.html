@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/content/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/content/img/favicon.ico" type="image/x-icon">
+
+    <title>WhatsChat</title>
+
+    <link rel="stylesheet" href="/content/css/usuario/usuario.css">
+</head>
+
+<body>
+    <form id="FormularioUsuario">
+        <h1>Novo Usuario</h1>
+        <div class="form-group">
+            <label for="txtNome">Nome</label>
+            <input type="text" id="txtNome" />
+        </div>
+        <div class="form-group">
+            <label for="txtFotoUsuario">Foto</label>
+            <input type="text" id="txtFotoUsuario" />
+            <input type="file" name="fotoUsuario" id="fileUpload" accept="image/*" style="display: none;" />
+        </div>
+        <button type="submit" id="btnSalvar">Submit</button>
+    </form>
+    <button type="button" id="btnExcluir">Excluir</button>
+    <script src="content/js/usuario.js"></script>
+</body>
+
+</html>
