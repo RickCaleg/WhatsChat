@@ -18,6 +18,7 @@ var Usuario = (function () {
 
         const result = await invokeForm('POST', '/Usuario', new FormData(form));
         console.log(result);
+        window.location.reload();
     });
 
     btnExcluir.addEventListener('click', async function () {
@@ -30,7 +31,9 @@ var Usuario = (function () {
         };
         const result = await invoke('DELETE', '/Usuario', JSON.stringify(data));
         txtFotoUsuario.value = '';
+        i=fileUpload.value = '';
         console.log(result);
+        window.location.reload();
     });
 
 
