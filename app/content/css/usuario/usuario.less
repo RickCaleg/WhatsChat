@@ -1,3 +1,116 @@
-#Usuario {
-    color: black;
+@import "../utility.less";
+
+html {
+    .font;
+    height  : 100vh;
+    width   : 100vw;
+    overflow: hidden;
+
+    body {
+        margin : 0;
+        padding: 0;
+    }
+
+    #FormularioUsuario {
+        height          : 100vh;
+        width           : 100vw;
+        position        : absolute;
+        top             : 0;
+        left            : 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+
+        .content {
+            background-color: @whats-color-6;
+            display         : flex;
+            flex-direction  : column;
+            align-items     : center;
+            padding         : 20px;
+            border-radius   : 10px;
+            .box-shadow;
+
+            .linha {
+                width          : 100%;
+                display        : flex;
+                justify-content: space-around;
+                flex-basis     : 1;
+
+                &:not(:last-of-type) {
+                    margin-bottom: 30px;
+                }
+
+                .titulo {
+                    margin-top   : 0;
+                    margin-bottom: 0;
+                    line-height  : 1;
+                    text-align   : center;
+                    color        : @whats-color-1;
+                }
+
+                .thumb {
+                    height             : 150px;
+                    width              : 150px;
+                    border-radius      : 999999px;
+                    background-color   : white;
+                    background-position: center;
+                    background-size    : cover;
+                    background-repeat  : no-repeat;
+                    cursor             : pointer;
+
+                    &:hover {
+                        opacity   : 0.8;
+                        transition: 0.25s;
+                    }
+
+                    &:active {
+                        opacity   : 1;
+                        transition: 0s;
+                    }
+                }
+
+                input[type="text"] {
+                    height       : 40px;
+                    border       : none;
+                    border-radius: 7px;
+                    padding      : 3px 5px;
+                    color        : #333;
+                    font-size    : 15px;
+                }
+
+                .btn {
+                    width           : 100%;
+                    height          : 35px;
+                    max-width       : 300px;
+                    border-radius   : 7px;
+                    border          : none;
+                    background-color: white;
+                    font-size       : 15px;
+                    font-weight     : 800;
+                    cursor          : pointer;
+
+                    &.verde {
+                        background-color: @whats-color-1;
+                        color           : white;
+
+                        &:hover {
+                            background-color: lighten(@whats-color-1, 5%);
+                            transition      : 0.25s;
+                        }
+
+                        &:active {
+                            background-color: @whats-color-1;
+                            transition      : 0s;
+                        }
+                    }
+
+                    &.vermelho {
+                        background-color: red;
+                        color           : white;
+                    }
+                }
+            }
+        }
+    }
 }

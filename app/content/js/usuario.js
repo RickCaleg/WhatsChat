@@ -1,39 +1,50 @@
 var Usuario = (function () {
     const form = document.querySelector('#FormularioUsuario');
-    const txtFotoUsuario = form.querySelector('#txtFotoUsuario');
     const fileUpload = form.querySelector('#fileUpload');
+    const fotoUsuario = form.querySelector('#fotoUsuario');
     const btnExcluir = document.querySelector('#btnExcluir');
 
-    fileUpload.addEventListener('change', function () {
-        const fileName = this.files[0].name;
+    fotoUsuario.addEventListener('click', () => fileUpload.click());
+    fileUpload.addEventListener('change', async function () {
+        const fileSrc = await readURL(this);
 
-        txtFotoUsuario.value = fileName;
+        fotoUsuario.style.backgroundImage = `url(${fileSrc})`;
     });
 
-    txtFotoUsuario.addEventListener('click', () => fileUpload.click());
-    txtFotoUsuario.addEventListener('keydown', event => event.preventDefault());
+    function readURL(input) {
+        return new Promise((resolve, reject) => {
+            if (!input.files || !input.files[0])
+                reject();
+            var reader = new FileReader();
+
+            reader.onload = e => {
+                resolve(e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        });
+    }
 
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
 
         const result = await invokeForm('POST', '/Usuario', new FormData(form));
         console.log(result);
-        window.location.reload();
     });
 
     btnExcluir.addEventListener('click', async function () {
         const fileName = fileUpload.files[0].name;
 
-        console.log('Excluir', fileName);
-
         const data = {
             fileName: fileName
         };
         const result = await invoke('DELETE', '/Usuario', JSON.stringify(data));
-        txtFotoUsuario.value = '';
-        i=fileUpload.value = '';
         console.log(result);
-        window.location.reload();
+
+        if (result.sucesso === true) {
+            fileUpload.value = '';
+            fotoUsuario.style.backgroundImage = 'none';
+        }
     });
 
 

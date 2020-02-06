@@ -16,12 +16,13 @@ router.post('/', (req, res) => {
         res.json({ sucesso: false, mensagem: 'Nenhum arquivo encontrado' });
 
     const fotoUsuario = req.files.fotoUsuario;
+    const filePath = UPLOAD_PATH + fotoUsuario.name;
 
-    fotoUsuario.mv(UPLOAD_PATH + fotoUsuario.name, function (err) {
+    fotoUsuario.mv(filePath, function (err) {
         if (err)
             res.json({ sucesso: false, mensagem: 'Erro ao salvar a foto do usuário', err: err });
         else
-            res.json({ sucesso: true, mensagem: 'Usuário salvo com sucesso' });
+            res.json({ sucesso: true, mensagem: 'Usuário salvo com sucesso', caminhoImagem: filePath });
     });
 });
 
