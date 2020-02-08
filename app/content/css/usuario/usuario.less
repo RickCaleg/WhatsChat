@@ -11,13 +11,13 @@ html {
         padding: 0;
     }
 
-    #FormularioUsuario {
+    #Login {
         height          : 100vh;
         width           : 100vw;
         position        : absolute;
         top             : 0;
         left            : 0;
-        background-color: rgba(0, 0, 0, 0.95);
+        background-color: rgba(0, 0, 0, 0.5);
         display         : flex;
         justify-content : center;
         align-items     : center;
@@ -70,6 +70,10 @@ html {
                         opacity   : 1;
                         transition: 0s;
                     }
+
+                    &.error {
+                        border: 3px solid red;
+                    }
                 }
 
                 input[type="text"] {
@@ -80,6 +84,10 @@ html {
                     color        : #333;
                     font-size    : 15px;
                     .box-shadow;
+
+                    &.error {
+                        border: 2px solid red;
+                    }
                 }
 
                 .btn {

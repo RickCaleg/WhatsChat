@@ -1,4 +1,4 @@
-<form id="FormularioUsuario">
+<form id="Login">
     <link rel="stylesheet" href="/content/css/usuario/usuario.css">
 
     <div class="content">
@@ -6,8 +6,9 @@
             <h1 class="titulo">Bem-vindo</h1 class="titulo">
         </div>
         <div class="linha">
+            <input type="hidden" id="txtFotoUsuario" />
             <div class="thumb" id="fotoUsuario" style="background-image: url(/content/img/robot_grayscale.png);"></div>
-            <input type="file" name="fotoUsuario" id="fileUpload" accept="image/*" style="display: none;" />
+            <input type="file" name="fotoUsuario" id="file_fotoUsuario" accept="image/*" style="display: none;" />
         </div>
         <div class="linha">
             <input type="text" id="txtNome" placeholder="Nome" maxlength="30" />
