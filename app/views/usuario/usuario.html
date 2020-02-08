@@ -1,40 +1,21 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="shortcut icon" href="/content/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/content/img/favicon.ico" type="image/x-icon">
-
-    <title>WhatsChat</title>
-
+<form id="FormularioUsuario">
     <link rel="stylesheet" href="/content/css/usuario/usuario.css">
-</head>
 
-<body>
-    <form id="FormularioUsuario">
-        <div class="content">
-            <div class="linha">
-                <h1 class="titulo">Bem-vindo</h1 class="titulo">
-            </div>
-            <div class="linha">
-                <div class="thumb" id="fotoUsuario"></div>
-                <input type="file" name="fotoUsuario" id="fileUpload" accept="image/*" style="display: none;" />
-            </div>
-            <div class="linha">
-                <input type="text" id="txtNome" placeholder="Nome" />
-            </div>
-            <div class="linha">
-                <button type="submit" class="btn verde" id="btnSalvar">Salvar</button>
-            </div>
-            <div class="linha">
-                <button type="button" class="btn vermelho" id="btnExcluir">Excluir</button>
-            </div>
+    <div class="content">
+        <div class="linha">
+            <h1 class="titulo">Bem-vindo</h1 class="titulo">
         </div>
-    </form>
+        <div class="linha">
+            <div class="thumb" id="fotoUsuario" style="background-image: url(/content/img/robot_grayscale.png);"></div>
+            <input type="file" name="fotoUsuario" id="fileUpload" accept="image/*" style="display: none;" />
+        </div>
+        <div class="linha">
+            <input type="text" id="txtNome" placeholder="Nome" maxlength="30" />
+        </div>
+        <div class="linha">
+            <button type="submit" class="btn verde" id="btnEntrar">Entrar</button>
+        </div>
+    </div>
 
     <script src="content/js/usuario.js"></script>
-</body>
-
-</html>
+</form>

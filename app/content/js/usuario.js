@@ -2,7 +2,6 @@ var Usuario = (function () {
     const form = document.querySelector('#FormularioUsuario');
     const fileUpload = form.querySelector('#fileUpload');
     const fotoUsuario = form.querySelector('#fotoUsuario');
-    const btnExcluir = document.querySelector('#btnExcluir');
 
     fotoUsuario.addEventListener('click', () => fileUpload.click());
     fileUpload.addEventListener('change', async function () {
