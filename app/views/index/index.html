@@ -13,7 +13,19 @@
 </head>
 
 <body>
-    <header>WhatsChat 1.0</header>
+    <header>
+        <div class="titulo">WhatsChat 1.0</div>
+        <div class="barra-ferramentas">
+            <button type="button" class="btnLogin" onclick="window.location.href = '/Usuario'">
+                Entrar
+                <i class="fas fa-sign-in-alt"></i>
+            </button>
+            <button type="button" class="btnLogout" style="display: none;">
+                Sair
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
     <nav>
         <div class="item">
             <div class="foto" style="background-image: url(/content/img/robot_grayscale.png);"></div>
@@ -96,7 +108,7 @@
     </main>
     <footer>
         <input type="text" class="mensagem" id="txtMensagem" maxlength="100" />
-        <button type="button" class="enviar" id="btnEnviar"></button>
+        <button type="button" class="enviar" id="btnEnviar"><i class="fas fa-paper-plane"></i></button>
     </footer>
 
     <script src="content/js/index.js"></script>
