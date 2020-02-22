@@ -25,7 +25,7 @@
                 <input type="file" name="fotoUsuario" id="file_fotoUsuario" accept="image/*" style="display: none;" />
             </div>
             <div class="linha">
-                <input type="text" id="txtNome" placeholder="Nome" maxlength="30" />
+                <input type="text" id="txtNome" name="nome" placeholder="Nome" maxlength="30" />
             </div>
             <div class="linha">
                 <button type="submit" class="btn verde" id="btnEntrar">Entrar</button>
@@ -33,6 +33,7 @@
         </div>
 
     </form>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="content/js/usuario.js"></script>
 </body>
 

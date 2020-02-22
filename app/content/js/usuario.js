@@ -12,9 +12,22 @@ var Usuario = (function () {
     function inicializar() {
         FotoUsuario.inicializar();
 
-        campos.btnEntrar.addEventListener('click', (event) => {
+        campos.btnEntrar.addEventListener('click', async (event) => {
             event.preventDefault();
-            alert(validar());
+            const valido = validar();
+
+            if (!valido)
+                return;
+
+            const socket = io.connect('http://localhost:3000');
+            socket.on('connect', async () => {
+                const data = new FormData(container);
+                data.append('socketID', socket.id);
+
+                const result = await Utility.invokeForm('POST', '/Usuario', data);
+                if (result.sucesso === true)
+                    window.location.href = '/';
+            });
         });
     }
 
@@ -108,11 +121,40 @@ var Usuario = (function () {
                 xhr.send(data);
             });
         }
+        function serialize(form) {
+
+            // Setup our serialized data
+            var serialized = [];
+
+            // Loop through each field in the form
+            for (var i = 0; i < form.elements.length; i++) {
+
+                var field = form.elements[i];
+
+                // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
+                if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+
+                // If a multi-select, get all selections
+                if (field.type === 'select-multiple') {
+                    for (var n = 0; n < field.options.length; n++) {
+                        if (!field.options[n].selected) continue;
+                        serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
+                    }
+                }
+
+                // Convert field data to a query string
+                else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+                    serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+                }
+            }
+            return serialized.join('&');
+        };
 
         return {
             readURL,
             invoke,
-            invokeForm
+            invokeForm,
+            serialize
         }
     })();
 

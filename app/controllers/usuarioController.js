@@ -7,6 +7,17 @@ const UPLOAD_PATH = path.join(__baseDir + `/files/fotosUsuarios/`);
 
 router.use(fileUpload());
 
+global.io.on('connection', function (socket) {
+    socket.on('disconnect', function () {
+        const usuario = global.usuarios[socket.id];
+        if (!usuario)
+            return;
+
+        ApagarFoto(usuario.fotoUsuario);
+        delete global.usuarios[socket.id];
+    });
+});
+
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '../../views/usuario/usuario.html'));
 });
@@ -16,26 +27,39 @@ router.post('/', (req, res) => {
         res.json({ sucesso: false, mensagem: 'Nenhum arquivo encontrado' });
 
     const fotoUsuario = req.files.fotoUsuario;
-    const filePath = UPLOAD_PATH + fotoUsuario.name;
+    const fileExtension = path.extname(fotoUsuario.name);
+    const newFileName = req.body.socketID + fileExtension;
+    const filePath = UPLOAD_PATH + newFileName;
 
     fotoUsuario.mv(filePath, function (err) {
-        if (err)
+        if (err) {
             res.json({ sucesso: false, mensagem: 'Erro ao salvar a foto do usuário', err: err });
-        else
+        } else {
+            const usuario = {
+                nome: req.body.nome,
+                fotoUsuario: newFileName,
+            };
+            global.usuarios[req.body.socketID] = usuario;
+
             res.json({ sucesso: true, mensagem: 'Usuário salvo com sucesso', caminhoImagem: filePath });
+        }
     });
 });
 
 router.delete('/', (req, res) => {
     const fileName = req.body.fileName;
-    const filePath = UPLOAD_PATH + fileName;
-
-    fs.unlink(filePath, err => {
+    ApagarFoto(fileName, err => {
         if (err)
             res.json({ sucesso: false, mensagem: 'Erro ao apagar a foto do usuário' });
         else
             res.json({ sucesso: true, mensagem: 'Foto apagada com sucesso' });
     });
 });
+
+function ApagarFoto(fotoUsuario, callback = function () { }) {
+    const filePath = UPLOAD_PATH + fotoUsuario;
+
+    fs.unlink(filePath, callback);
+}
 
 module.exports = router;

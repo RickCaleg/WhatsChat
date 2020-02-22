@@ -1,8 +1,12 @@
 const express = require('express'),
-    app = express();
+    app = express(),
+    server = require('http').Server(app),
+    io = require('socket.io')(server);
+
+global.io = io;
+global.usuarios = {};
 
 global.__baseDir = __dirname;
-
 app.use(express.json());
 
 app.use('/content', express.static('./app/content'));
@@ -16,4 +20,4 @@ app.use('/', indexController);
 app.use('/usuario', usuarioController);
 //Routers
 
-module.exports = app;
+module.exports = server;
