@@ -11,7 +11,8 @@ var Index = (function () {
         const socket = io.connect('http://localhost:3000');
         socket.on('connect', async () => {
             await conectarUsuario(socket.id);
-            console.log(usuario);
+            console.table(usuario);
+            Logar();
         });
     }
 
@@ -29,4 +30,8 @@ var Index = (function () {
         });
     }
 
+    function Logar() {
+        document.getElementById('btnLogin').classList.add('hide');
+        document.getElementById('btnLogout').classList.remove('hide');
+    }
 })();
