@@ -10,6 +10,9 @@ var Usuario = (function () {
     document.addEventListener('DOMContentLoaded', inicializar);
 
     function inicializar() {
+        if (localStorage.getItem('idUsuario'))
+            window.location.href = '/';
+
         FotoUsuario.inicializar();
 
         campos.btnEntrar.addEventListener('click', async (event) => {
