@@ -9,12 +9,12 @@ router.use(fileUpload());
 
 global.io.on('connection', function (socket) {
     socket.on('disconnect', function () {
-        const usuario = global.usuarios[socket.id];
+        const usuario = global.chat.GetUsuario(socket.id);
         if (!usuario)
             return;
 
         ApagarFoto(usuario.fotoUsuario);
-        delete global.usuarios[socket.id];
+        global.chat.RemoverUsuario(socket.id);
     });
 });
 
@@ -35,11 +35,12 @@ router.post('/', (req, res) => {
         if (err) {
             res.json({ sucesso: false, mensagem: 'Erro ao salvar a foto do usuário', err: err });
         } else {
-            const usuario = {
+            global.chat.AdicionarUsuario({
+                idUsuario: 0,
                 nome: req.body.nome,
-                fotoUsuario: newFileName,
-            };
-            global.usuarios[req.body.socketID] = usuario;
+                foto: newFileName,
+                socketID: req.body.socketID
+            });
 
             res.json({ sucesso: true, mensagem: 'Usuário salvo com sucesso', caminhoImagem: filePath });
         }

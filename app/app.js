@@ -1,10 +1,11 @@
 const express = require('express'),
     app = express(),
     server = require('http').Server(app),
-    io = require('socket.io')(server);
+    io = require('socket.io')(server),
+    Chat = require('./business/chat');
 
+global.chat = Chat;
 global.io = io;
-global.usuarios = {};
 
 global.__baseDir = __dirname;
 app.use(express.json());

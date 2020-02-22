@@ -25,8 +25,8 @@ var Usuario = (function () {
                 data.append('socketID', socket.id);
 
                 const result = await Utility.invokeForm('POST', '/Usuario', data);
-                if (result.sucesso === true)
-                    window.location.href = '/';
+                // if (result.sucesso === true)
+                //     window.location.href = '/';
             });
         });
     }
