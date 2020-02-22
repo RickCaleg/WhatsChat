@@ -2,13 +2,27 @@ const express = require('express'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server),
-    Chat = require('./business/chat');
+    Chat = require('./business/chat'),
+    path = require('path'),
+    fs = require('fs');
 
 global.chat = Chat;
 global.io = io;
 
 global.__baseDir = __dirname;
 app.use(express.json());
+
+const UPLOAD_PATH = path.join(__baseDir + `/files/fotosUsuarios/`);
+
+fs.readdir(UPLOAD_PATH, (err, files) => {
+    if (err) throw err;
+
+    for (const file of files) {
+        fs.unlink(path.join(UPLOAD_PATH, file), err => {
+            if (err) throw err;
+        });
+    }
+});
 
 app.use('/content', express.static('./app/content'));
 app.use('/files/fotosUsuarios', express.static('./app/files/fotosUsuarios'));
