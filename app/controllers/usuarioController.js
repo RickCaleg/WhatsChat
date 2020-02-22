@@ -8,14 +8,6 @@ const UPLOAD_PATH = path.join(__baseDir + `/files/fotosUsuarios/`);
 router.use(fileUpload());
 
 global.io.on('connection', function (socket) {
-    socket.on('disconnect', function () {
-        const usuario = global.chat.GetUsuario(socket.id);
-        if (!usuario)
-            return;
-
-        ApagarFoto(usuario.fotoUsuario);
-        global.chat.RemoverUsuario(socket.id);
-    });
 });
 
 router.get('/', (req, res) => {
@@ -35,14 +27,14 @@ router.post('/', (req, res) => {
         if (err) {
             res.json({ sucesso: false, mensagem: 'Erro ao salvar a foto do usuário', err: err });
         } else {
-            global.chat.AdicionarUsuario({
+            const idUsuario = global.chat.AdicionarUsuario({
                 idUsuario: 0,
                 nome: req.body.nome,
                 foto: newFileName,
                 socketID: req.body.socketID
             });
 
-            res.json({ sucesso: true, mensagem: 'Usuário salvo com sucesso', caminhoImagem: filePath });
+            res.json({ sucesso: true, mensagem: 'Usuário salvo com sucesso', caminhoImagem: filePath, idUsuario: idUsuario });
         }
     });
 });

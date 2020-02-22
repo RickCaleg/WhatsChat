@@ -8,14 +8,18 @@ var Chat = (function () {
             'foto': foto,
             'socketID': socketID
         };
+        return idUsuario;
     }
     function RemoverUsuario(idUsuario) {
         if (_listaUsuarios[idUsuario])
             delete _listaUsuarios[idUsuario];
     }
     function AtualizarUsuario(idUsuario, socketID) {
-        if (_listaUsuarios[idUsuario])
-            _listaUsuarios[idUsuario].socketID = socketID;
+        if (!_listaUsuarios[idUsuario])
+            return false;
+
+        _listaUsuarios[idUsuario].socketID = socketID;
+        return true;
     }
     function GetUsuario(idUsuario) {
         return _listaUsuarios[idUsuario] || null;
