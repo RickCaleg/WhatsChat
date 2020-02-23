@@ -4,6 +4,7 @@ var Chat = (function () {
     function AdicionarUsuario({ nome, foto, socketID }) {
         const idUsuario = _gerarIDUsuario();
         _listaUsuarios[idUsuario] = {
+            'idUsuario': idUsuario,
             'nome': nome,
             'foto': foto,
             'socketID': socketID
@@ -25,8 +26,15 @@ var Chat = (function () {
         return _listaUsuarios[idUsuario] || null;
     }
 
-    function ListarUsuarios() {
-        return _listaUsuarios;
+    function ListarUsuarios(idUsuario) {
+        const retorno = [];
+        const listaUsuarios = Object.entries(_listaUsuarios);
+
+        for (let i = 0; i < listaUsuarios.length; i++) {
+            if (listaUsuarios[i][1].idUsuario !== idUsuario)
+                retorno.push(listaUsuarios[i][1]);
+        }
+        return retorno;
     }
 
     const _gerarIDUsuario = function () {

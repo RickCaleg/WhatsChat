@@ -7,12 +7,13 @@ var Index = (function () {
 
     function inicializar() {
         if (!idUsuario)
-            Deslogar();
+            return Deslogar();
 
         const socket = io.connect('http://localhost:3000');
         socket.on('connect', async () => {
             socketID = socket.id;
             Logar();
+            GetListaUsuarios();
         });
     }
 
@@ -24,12 +25,12 @@ var Index = (function () {
     }
     async function Logar() {
         if (!socketID)
-            Deslogar();
+            return Deslogar();
 
         usuario = await Utility.invoke('POST', '/GetUsuario', { 'idUsuario': idUsuario });
 
         if (!usuario)
-            Deslogar();
+            return Deslogar();
 
         await Utility.invoke('POST', '/AtualizarUsuario', { 'idUsuario': idUsuario, 'socketID': socketID });
 
@@ -41,5 +42,21 @@ var Index = (function () {
         userData.querySelector('.nome').innerHTML = usuario.nome.split(' ')[0];
         userData.classList.remove('hide');
         document.getElementById('btnLogout').addEventListener('click', Deslogar);
+    }
+
+    async function GetListaUsuarios() {
+        const listaUsuarios = await Utility.invoke('POST', '/ListarUsuarios', { 'idUsuario': idUsuario });
+        const divListaUsuarios = document.getElementById('ListaUsuarios');
+
+        console.log(listaUsuarios);
+
+        divListaUsuarios.innerHTML = listaUsuarios.map(user => {
+            return `
+            <div class="item">
+                <div class="foto" style="background-image: url(/files/fotosUsuarios/${user.foto});"></div>
+                <div class="nome">${user.nome}</nome>
+            </div>
+            `;
+        }).join('');
     }
 })();

@@ -30,6 +30,11 @@ router.post('/Logout', (req, res) => {
     });
 });
 
+router.post('/ListarUsuarios', (req, res) => {
+    const idUsuario = req.body.idUsuario;
+    res.json(global.chat.ListarUsuarios(idUsuario));
+});
+
 function ApagarFoto(fotoUsuario, callback = function () { }) {
     const filePath = UPLOAD_PATH + fotoUsuario;
 
