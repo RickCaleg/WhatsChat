@@ -4497,25 +4497,54 @@ html body header {
   align-items: center;
   justify-content: space-between;
 }
-html body header .btnLogin,
-html body header .btnLogout {
+html body header .barra-ferramentas {
+  display: flex;
+}
+html body header .barra-ferramentas .user-data {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: default;
+}
+html body header .barra-ferramentas .user-data:not(.hide) {
+  margin-right: 10px;
+}
+html body header .barra-ferramentas .user-data .foto {
+  flex-shrink: 0;
+  margin-right: 5px;
+  height: 40px;
+  width: 40px;
+  border-radius: 999px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #075e54;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+html body header .barra-ferramentas .user-data .nome {
+  color: #fff;
+}
+html body header .barra-ferramentas .btnLogin,
+html body header .barra-ferramentas .btnLogout {
   border: none;
   background-color: transparent;
   color: #ffffff;
   cursor: pointer;
 }
-html body header .btnLogin:hover i,
-html body header .btnLogout:hover i {
+html body header .barra-ferramentas .btnLogin:hover i,
+html body header .barra-ferramentas .btnLogout:hover i {
   margin-left: 3px;
+  margin-right: 2px;
   transition: 0.2s;
 }
-html body header .btnLogin:active i,
-html body header .btnLogout:active i {
+html body header .barra-ferramentas .btnLogin:active i,
+html body header .barra-ferramentas .btnLogout:active i {
   margin-left: 0;
+  margin-right: 5px;
   transition: 0s;
 }
-html body header .btnLogin i,
-html body header .btnLogout i {
+html body header .barra-ferramentas .btnLogin i,
+html body header .barra-ferramentas .btnLogout i {
   margin-left: 5px;
 }
 html body nav {

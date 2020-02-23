@@ -53,25 +53,59 @@ html {
             align-items     : center;
             justify-content : space-between;
 
-            .btnLogin,
-            .btnLogout {
-                border          : none;
-                background-color: transparent;
-                color           : @whats-color-7;
-                cursor          : pointer;
+            .barra-ferramentas {
+                display: flex;
 
-                &:hover i {
-                    margin-left: 3px;
-                    transition : 0.2s;
+                .user-data {
+                    display    : flex;
+                    align-items: center;
+                    user-select: none;
+                    cursor     : default;
+
+                    &:not(.hide) {
+                        margin-right: 10px;
+                    }
+
+                    .foto {
+                        flex-shrink        : 0;
+                        margin-right       : 5px;
+                        height             : 40px;
+                        width              : 40px;
+                        border-radius      : 999px;
+                        background-size    : cover;
+                        background-position: center;
+                        background-repeat  : no-repeat;
+                        background-color   : @whats-color-1;
+                        .box-shadow;
+                    }
+
+                    .nome {
+                        color: #fff;
+                    }
                 }
 
-                &:active i {
-                    margin-left: 0;
-                    transition : 0s;
-                }
+                .btnLogin,
+                .btnLogout {
+                    border          : none;
+                    background-color: transparent;
+                    color           : @whats-color-7;
+                    cursor          : pointer;
 
-                i {
-                    margin-left: 5px;
+                    &:hover i {
+                        margin-left : 3px;
+                        margin-right: 2px;
+                        transition  : 0.2s;
+                    }
+
+                    &:active i {
+                        margin-left : 0;
+                        margin-right: 5px;
+                        transition  : 0s;
+                    }
+
+                    i {
+                        margin-left: 5px;
+                    }
                 }
             }
         }

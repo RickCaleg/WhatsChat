@@ -37,6 +37,11 @@ var Index = (function () {
     function Logar() {
         document.getElementById('btnLogin').classList.add('hide');
         document.getElementById('btnLogout').classList.remove('hide');
+
+        const userData = document.getElementById('user-data');
+        userData.querySelector('.foto').style['background-image'] = `url(/files/fotosUsuarios/${usuario.foto})`;
+        userData.querySelector('.nome').innerHTML = usuario.nome.split(' ')[0];
+        userData.classList.remove('hide');
     }
 
     async function Deslogar() {
