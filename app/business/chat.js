@@ -1,5 +1,6 @@
 var Chat = (function () {
     const _listaUsuarios = {};
+    const _listaMensagens = [];
 
     function AdicionarUsuario({ nome, foto, socketID }) {
         const idUsuario = _gerarIDUsuario();
@@ -25,7 +26,6 @@ var Chat = (function () {
     function GetUsuario(idUsuario) {
         return _listaUsuarios[idUsuario] || null;
     }
-
     function ListarUsuarios(idUsuario) {
         const retorno = [];
         const listaUsuarios = Object.entries(_listaUsuarios);
@@ -36,7 +36,6 @@ var Chat = (function () {
         }
         return retorno;
     }
-
     const _gerarIDUsuario = function () {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -44,13 +43,28 @@ var Chat = (function () {
         });
     }
 
+    function AdicionarMensagem(idUsuario, mensagem, nome) {
+        _listaMensagens.push({
+            'idUsuario': idUsuario,
+            'nome': nome,
+            'mensagem': mensagem,
+            'data': new Date()
+        });
+    }
+    function ListarMensagens() {
+        return _listaMensagens;
+    }
+
+
 
     return {
         AdicionarUsuario,
         RemoverUsuario,
         AtualizarUsuario,
         GetUsuario,
-        ListarUsuarios
+        ListarUsuarios,
+        AdicionarMensagem,
+        ListarMensagens
     };
 })();
 

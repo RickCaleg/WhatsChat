@@ -165,7 +165,7 @@ html {
                 background-color          : @mensagem-background;
                 .box-shadow;
 
-                &:before {
+                &:not(.minha):before {
                     content     : "\A";
                     border-style: solid;
                     border-width: 0px 7px 10px 0;
@@ -173,6 +173,20 @@ html {
                     position    : absolute;
                     top         : 0;
                     left        : -7px;
+                }
+
+                &.minha {
+                    margin-left: auto;
+
+                    &:before {
+                        content     : "\A";
+                        border-style: solid;
+                        border-width: 7px 10px 0 0;
+                        border-color: @mensagem-background transparent transparent transparent;
+                        position    : absolute;
+                        top         : 0;
+                        right       : -7px;
+                    }
                 }
 
                 .nome {

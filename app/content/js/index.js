@@ -13,9 +13,12 @@ var Index = (function () {
         socket.on('connect', async () => {
             socketID = socket.id;
             Logar();
+            ConfigurarInputMensagem();
             GetListaUsuarios();
+            GetListaMensagens();
 
             socket.on('refresh-users', GetListaUsuarios);
+            socket.on('refresh-messages', GetListaMensagens);
         });
     }
 
@@ -51,15 +54,46 @@ var Index = (function () {
         const divListaUsuarios = document.getElementById('ListaUsuarios');
 
         if (listaUsuarios.length > 0)
-            divListaUsuarios.innerHTML = listaUsuarios.map(user => {
-                return `
+            divListaUsuarios.innerHTML = listaUsuarios.map(user => `
                 <div class="item">
                     <div class="foto" style="background-image: url(/files/fotosUsuarios/${user.foto});"></div>
                     <div class="nome">${user.nome}</nome>
                 </div>
-                `;
-            }).join('');
+                `).join('');
         else
             divListaUsuarios.innerHTML = '<div class="item">Ninguém está online</div>';
+    }
+    async function GetListaMensagens() {
+        const listaMensagens = await Utility.invoke('POST', '/ListarMensagens');
+        const divListaMensagens = document.getElementById('ListaMensagens');
+
+        if (listaMensagens.length > 0)
+            divListaMensagens.innerHTML = listaMensagens.map(msg => `
+                <div class="mensagem ${msg.idUsuario == idUsuario ? `minha` : `${console.log(msg)}`}">
+                    <div class="nome">${msg.nome}</div>
+                    <div class="conteudo">${msg.mensagem}</div>
+                </div>
+                `).join(' ');
+    }
+
+    function ConfigurarInputMensagem() {
+        const txtMensagem = document.getElementById('txtMensagem');
+        const btnEnviar = document.getElementById('btnEnviar');
+
+        btnEnviar.addEventListener('click', EnviarMensagem);
+        txtMensagem.addEventListener('keydown', function (e) { if (e.keyCode === 13) EnviarMensagem(); });
+    }
+
+    function EnviarMensagem() {
+        const txtMensagem = document.getElementById('txtMensagem');
+        const btnEnviar = document.getElementById('btnEnviar');
+
+        if (txtMensagem.value.length <= 0)
+            return;
+
+        Utility.invoke('POST', '/AdicionarMensagem', { idUsuario: idUsuario, mensagem: txtMensagem.value, nome: usuario.nome }).then(result => {
+            if (result.sucesso === true)
+                txtMensagem.value = '';
+        });
     }
 })();
