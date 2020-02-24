@@ -8,6 +8,11 @@ const UPLOAD_PATH = path.join(__baseDir + `/files/fotosUsuarios/`);
 router.use(fileUpload());
 
 global.io.on('connection', function (socket) {
+    global.io.emit('refresh-users');
+
+    socket.on('disconnect', () => {
+        global.io.emit('refresh-users');
+    });
 });
 
 router.get('/', (req, res) => {

@@ -14,6 +14,8 @@ var Index = (function () {
             socketID = socket.id;
             Logar();
             GetListaUsuarios();
+
+            socket.on('refresh-users', GetListaUsuarios);
         });
     }
 
@@ -48,15 +50,16 @@ var Index = (function () {
         const listaUsuarios = await Utility.invoke('POST', '/ListarUsuarios', { 'idUsuario': idUsuario });
         const divListaUsuarios = document.getElementById('ListaUsuarios');
 
-        console.log(listaUsuarios);
-
-        divListaUsuarios.innerHTML = listaUsuarios.map(user => {
-            return `
-            <div class="item">
-                <div class="foto" style="background-image: url(/files/fotosUsuarios/${user.foto});"></div>
-                <div class="nome">${user.nome}</nome>
-            </div>
-            `;
-        }).join('');
+        if (listaUsuarios.length > 0)
+            divListaUsuarios.innerHTML = listaUsuarios.map(user => {
+                return `
+                <div class="item">
+                    <div class="foto" style="background-image: url(/files/fotosUsuarios/${user.foto});"></div>
+                    <div class="nome">${user.nome}</nome>
+                </div>
+                `;
+            }).join('');
+        else
+            divListaUsuarios.innerHTML = '<div class="item">Ninguém está online</div>';
     }
 })();
