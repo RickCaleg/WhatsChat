@@ -11,6 +11,9 @@ global.io.on('connection', function (socket) {
     global.io.emit('refresh-users');
 
     socket.on('disconnect', () => {
+        const usuario = global.chat.GetUsuarioBySocketId(socket.id);
+        if (usuario && usuario.nome)
+            global.io.emit('new-warning', `${usuario.nome} saiu da sala`);
         global.io.emit('refresh-users');
     });
 });

@@ -20,10 +20,22 @@ var Chat = (function () {
             return false;
 
         _listaUsuarios[idUsuario].socketID = socketID;
+
+        global.io.emit('new-warning', `${_listaUsuarios[idUsuario].nome} entrou na sala`);
         return true;
     }
     function GetUsuario(idUsuario) {
         return _listaUsuarios[idUsuario] || null;
+    }
+    function GetUsuarioBySocketId(socketID) {
+        const listaUsuarios = Object.entries(_listaUsuarios);
+        let retorno = null;
+        listaUsuarios.forEach(element => {
+            const usuario = element[1];
+            if (usuario.socketID === socketID)
+                retorno = usuario;
+        });
+        return retorno;
     }
     function ListarUsuarios(idUsuario) {
         const retorno = [];
@@ -61,6 +73,7 @@ var Chat = (function () {
         RemoverUsuario,
         AtualizarUsuario,
         GetUsuario,
+        GetUsuarioBySocketId,
         ListarUsuarios,
         AdicionarMensagem,
         ListarMensagens

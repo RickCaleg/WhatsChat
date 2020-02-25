@@ -18,6 +18,7 @@ var Index = (function () {
 
             socket.on('refresh-users', GetListaUsuarios);
             socket.on('new-message', mensagem => NovaMensagem(mensagem));
+            socket.on('new-warning', aviso => NovoAviso(aviso));
         });
     }
 
@@ -62,7 +63,7 @@ var Index = (function () {
         else
             divListaUsuarios.innerHTML = '<div class="item">Ninguém está online</div>';
     }
-    async function NovaMensagem(mensagem) {
+    function NovaMensagem(mensagem) {
         const divListaMensagens = document.getElementById('ListaMensagens');
 
         divListaMensagens.innerHTML = divListaMensagens.innerHTML + `
@@ -72,6 +73,14 @@ var Index = (function () {
             </div>
         `;
     }
+    function NovoAviso(aviso) {
+        const divListaMensagens = document.getElementById('ListaMensagens');
+
+        divListaMensagens.innerHTML = divListaMensagens.innerHTML + `
+            <div class="aviso">${aviso}</div>
+        `;
+    }
+
 
     function ConfigurarInputMensagem() {
         const txtMensagem = document.getElementById('txtMensagem');
