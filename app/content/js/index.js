@@ -15,10 +15,9 @@ var Index = (function () {
             Logar();
             ConfigurarInputMensagem();
             GetListaUsuarios();
-            GetListaMensagens();
 
             socket.on('refresh-users', GetListaUsuarios);
-            socket.on('refresh-messages', GetListaMensagens);
+            socket.on('new-message', mensagem => NovaMensagem(mensagem));
         });
     }
 
@@ -63,17 +62,15 @@ var Index = (function () {
         else
             divListaUsuarios.innerHTML = '<div class="item">Ninguém está online</div>';
     }
-    async function GetListaMensagens() {
-        const listaMensagens = await Utility.invoke('POST', '/ListarMensagens');
+    async function NovaMensagem(mensagem) {
         const divListaMensagens = document.getElementById('ListaMensagens');
 
-        if (listaMensagens.length > 0)
-            divListaMensagens.innerHTML = listaMensagens.map(msg => `
-                <div class="mensagem ${msg.idUsuario == idUsuario ? `minha` : `${console.log(msg)}`}">
-                    <div class="nome">${msg.nome}</div>
-                    <div class="conteudo">${msg.mensagem}</div>
-                </div>
-                `).join(' ');
+        divListaMensagens.innerHTML = divListaMensagens.innerHTML + `
+            <div class="mensagem ${mensagem.idUsuario == idUsuario ? `minha` : ``}">
+                <div class="nome">${mensagem.nome}</div>
+                <div class="conteudo">${mensagem.mensagem}</div>
+            </div>
+        `;
     }
 
     function ConfigurarInputMensagem() {
@@ -86,7 +83,6 @@ var Index = (function () {
 
     function EnviarMensagem() {
         const txtMensagem = document.getElementById('txtMensagem');
-        const btnEnviar = document.getElementById('btnEnviar');
 
         if (txtMensagem.value.length <= 0)
             return;

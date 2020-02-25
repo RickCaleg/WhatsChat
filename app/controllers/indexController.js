@@ -37,11 +37,7 @@ router.post('/ListarUsuarios', (req, res) => {
 
 router.post('/AdicionarMensagem', (req, res) => {
     global.chat.AdicionarMensagem(req.body.idUsuario, req.body.mensagem, req.body.nome);
-    global.io.emit('refresh-messages');
     res.json({ sucesso: true, mensagem: 'Mensagem Adicionada com sucesso' });
-});
-router.post('/ListarMensagens', (req, res) => {
-    res.json(global.chat.ListarMensagens());
 });
 
 function ApagarFoto(fotoUsuario, callback = function () { }) {

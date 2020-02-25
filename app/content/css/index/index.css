@@ -4607,6 +4607,8 @@ html body main .mensagem:not(.minha):before {
 }
 html body main .mensagem.minha {
   margin-left: auto;
+  border-top-right-radius: 0;
+  border-top-left-radius: 5px;
 }
 html body main .mensagem.minha:before {
   content: "\A";

@@ -1,6 +1,5 @@
 var Chat = (function () {
     const _listaUsuarios = {};
-    const _listaMensagens = [];
 
     function AdicionarUsuario({ nome, foto, socketID }) {
         const idUsuario = _gerarIDUsuario();
@@ -44,15 +43,15 @@ var Chat = (function () {
     }
 
     function AdicionarMensagem(idUsuario, mensagem, nome) {
-        _listaMensagens.push({
+        global.io.emit('new-message', {
             'idUsuario': idUsuario,
             'nome': nome,
             'mensagem': mensagem,
             'data': new Date()
         });
     }
-    function ListarMensagens() {
-        return _listaMensagens;
+    function ListarMensagens(idUltimaMensagem) {
+        return _listaMensagens.filter(msg => msg.idMensagem > idUltimaMensagem);
     }
 
 
