@@ -32,9 +32,10 @@ router.post('/Logout', (req, res) => {
     global.chat.UsuarioDesconectado(usuario.idUsuario);
 });
 
-router.post('/ListarUsuarios', (req, res) => {
+router.post('/ListarUsuariosOnline', (req, res) => {
     const idUsuario = req.body.idUsuario;
-    res.json(global.chat.ListarUsuarios(idUsuario));
+    const listaUsuarios = global.chat.ListarUsuarios(idUsuario).filter(usuario => usuario.online == 1);
+    res.json(listaUsuarios);
 });
 
 router.post('/AdicionarMensagem', (req, res) => {

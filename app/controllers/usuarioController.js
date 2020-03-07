@@ -20,7 +20,7 @@ global.io.on('connection', function (socket) {
                 const _usuario = global.chat.GetUsuario(usuario.idUsuario);
 
                 //If user is not connected anymore, warning the other users
-                if (!global.io.sockets.sockets[_usuario.socketID])
+                if (_usuario && !global.io.sockets.sockets[_usuario.socketID])
                     global.chat.UsuarioDesconectado(_usuario.idUsuario);
             }, 3000);
         }

@@ -25,6 +25,7 @@ var Chat = (function () {
         if (_listaUsuarios[idUsuario].online === 0) {
             _listaUsuarios[idUsuario].online = 1;
             global.io.emit('new-warning', `${_listaUsuarios[idUsuario].nome} entrou na sala`);
+            global.io.emit('refresh-users');
         }
         return true;
     }
@@ -82,8 +83,6 @@ var Chat = (function () {
         global.io.emit('refresh-users');
         return true;
     }
-
-
 
     return {
         AdicionarUsuario,

@@ -14,9 +14,9 @@ var Index = (function () {
             socketID = socket.id;
             Logar();
             ConfigurarInputMensagem();
-            GetListaUsuarios();
+            GetListaUsuariosOnline();
 
-            socket.on('refresh-users', GetListaUsuarios);
+            socket.on('refresh-users', GetListaUsuariosOnline);
             socket.on('new-message', mensagem => NovaMensagem(mensagem));
             socket.on('new-warning', aviso => NovoAviso(aviso));
         });
@@ -49,8 +49,8 @@ var Index = (function () {
         document.getElementById('btnLogout').addEventListener('click', Deslogar);
     }
 
-    async function GetListaUsuarios() {
-        const listaUsuarios = await Utility.invoke('POST', '/ListarUsuarios', { 'idUsuario': idUsuario });
+    async function GetListaUsuariosOnline() {
+        const listaUsuarios = await Utility.invoke('POST', '/ListarUsuariosOnline', { 'idUsuario': idUsuario });
         const divListaUsuarios = document.getElementById('ListaUsuarios');
 
         if (listaUsuarios.length > 0)
