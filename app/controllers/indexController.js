@@ -28,6 +28,8 @@ router.post('/Logout', (req, res) => {
         else
             res.json({ sucesso: true, mensagem: 'Foto apagada com sucesso' });
     });
+
+    global.chat.UsuarioDesconectado(usuario.idUsuario);
 });
 
 router.post('/ListarUsuarios', (req, res) => {

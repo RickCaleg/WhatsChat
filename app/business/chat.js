@@ -7,7 +7,8 @@ var Chat = (function () {
             'idUsuario': idUsuario,
             'nome': nome,
             'foto': foto,
-            'socketID': socketID
+            'socketID': socketID,
+            'online': 0
         };
         return idUsuario;
     }
@@ -21,7 +22,10 @@ var Chat = (function () {
 
         _listaUsuarios[idUsuario].socketID = socketID;
 
-        global.io.emit('new-warning', `${_listaUsuarios[idUsuario].nome} entrou na sala`);
+        if (_listaUsuarios[idUsuario].online === 0) {
+            _listaUsuarios[idUsuario].online = 1;
+            global.io.emit('new-warning', `${_listaUsuarios[idUsuario].nome} entrou na sala`);
+        }
         return true;
     }
     function GetUsuario(idUsuario) {
@@ -59,11 +63,24 @@ var Chat = (function () {
             'idUsuario': idUsuario,
             'nome': nome,
             'mensagem': mensagem,
-            'data': new Date()
+            'data': new Date(),
+            'online': 1
         });
     }
     function ListarMensagens(idUltimaMensagem) {
         return _listaMensagens.filter(msg => msg.idMensagem > idUltimaMensagem);
+    }
+
+    function UsuarioDesconectado(idUsuario) {
+        const usuario = _listaUsuarios[idUsuario];
+
+        if (!usuario)
+            return false;
+
+        _listaUsuarios[idUsuario].online = 0;
+        global.io.emit('new-warning', `${usuario.nome} saiu da sala`);
+        global.io.emit('refresh-users');
+        return true;
     }
 
 
@@ -76,7 +93,8 @@ var Chat = (function () {
         GetUsuarioBySocketId,
         ListarUsuarios,
         AdicionarMensagem,
-        ListarMensagens
+        ListarMensagens,
+        UsuarioDesconectado
     };
 })();
 

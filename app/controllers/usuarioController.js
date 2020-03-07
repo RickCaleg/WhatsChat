@@ -11,10 +11,19 @@ global.io.on('connection', function (socket) {
     global.io.emit('refresh-users');
 
     socket.on('disconnect', () => {
+        //Get user data
         const usuario = global.chat.GetUsuarioBySocketId(socket.id);
-        if (usuario && usuario.nome)
-            global.io.emit('new-warning', `${usuario.nome} saiu da sala`);
-        global.io.emit('refresh-users');
+        if (usuario && usuario.nome) {
+
+            //Wait for 3 seconds and verify if user is still logged on
+            setTimeout(() => {
+                const _usuario = global.chat.GetUsuario(usuario.idUsuario);
+
+                //If user is not connected anymore, warning the other users
+                if (!global.io.sockets.sockets[_usuario.socketID])
+                    global.chat.UsuarioDesconectado(_usuario.idUsuario);
+            }, 3000);
+        }
     });
 });
 
