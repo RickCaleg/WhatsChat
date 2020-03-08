@@ -72,6 +72,8 @@ var Index = (function () {
                 <div class="conteudo">${mensagem.mensagem}</div>
             </div>
         `;
+
+        divListaMensagens.scroll(0, divListaMensagens.scrollHeight);
     }
     function NovoAviso(aviso) {
         const divListaMensagens = document.getElementById('ListaMensagens');
