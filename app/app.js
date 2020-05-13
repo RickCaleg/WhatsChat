@@ -15,12 +15,22 @@ app.use(express.json());
 const UPLOAD_PATH = path.join(__baseDir + `/files/fotosUsuarios/`);
 
 fs.readdir(UPLOAD_PATH, (err, files) => {
-    if (err) throw err;
+    if (err) {
+        if (!fs.existsSync(UPLOAD_PATH)) {
+            fs.mkdirSync(UPLOAD_PATH, {
+                recursive: true
+            });
+        } else {
+            throw err;
+        }
+    }
 
-    for (const file of files) {
-        fs.unlink(path.join(UPLOAD_PATH, file), err => {
-            if (err) throw err;
-        });
+    if (files.length > 0) {
+        for (const file of files) {
+            fs.unlink(path.join(UPLOAD_PATH, file), err => {
+                if (err) throw err;
+            });
+        }
     }
 });
 
