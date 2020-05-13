@@ -1,5 +1,6 @@
 const app = require('./app/app');
 
-app.listen(3000, function () {
+var PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
     console.log('O servidor está escutando a porta 3000');
 });

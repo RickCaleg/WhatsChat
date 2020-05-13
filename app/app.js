@@ -25,7 +25,7 @@ fs.readdir(UPLOAD_PATH, (err, files) => {
         }
     }
 
-    if (files.length > 0) {
+    if (files && files.length > 0) {
         for (const file of files) {
             fs.unlink(path.join(UPLOAD_PATH, file), err => {
                 if (err) throw err;
