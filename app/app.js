@@ -9,8 +9,6 @@ const express = require('express'),
 global.chat = Chat;
 global.io = io;
 
-//teste
-
 global.__baseDir = __dirname;
 app.use(express.json());
 
