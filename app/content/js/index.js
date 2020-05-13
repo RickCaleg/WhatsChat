@@ -9,7 +9,7 @@ var Index = (function () {
         if (!idUsuario)
             return Deslogar();
 
-        const socket = io.connect('http://localhost:3000');
+        const socket = io.connect('https://richardson.eti.br');
         socket.on('connect', async () => {
             socketID = socket.id;
             Logar();
