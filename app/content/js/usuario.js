@@ -22,7 +22,7 @@ var Usuario = (function () {
             if (!valido)
                 return;
 
-            const socket = io.connect('https://richardson.eti.br');
+            const socket = io.connect('https://whatschat.richardson.eti.br');
             socket.on('connect', async () => {
                 const data = new FormData(container);
                 data.append('socketID', socket.id);

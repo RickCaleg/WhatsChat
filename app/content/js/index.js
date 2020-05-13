@@ -9,7 +9,7 @@ var Index = (function () {
         if (!idUsuario)
             return Deslogar();
 
-        const socket = io.connect('https://richardson.eti.br');
+        const socket = io.connect('https://whatschat.richardson.eti.br');
         socket.on('connect', async () => {
             socketID = socket.id;
             Logar();
