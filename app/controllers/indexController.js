@@ -21,14 +21,19 @@ router.post('/AtualizarUsuario', (req, res) => {
 
 router.post('/Logout', (req, res) => {
     const usuario = global.chat.GetUsuario(req.body.idUsuario);
-    ApagarFoto(usuario.foto, function (err) {
+
+    if (usuario == null) {
+        res.json({ sucesso: true, mensagem: 'Deslogado com sucesso' });
+        return;
+    }
+
+    ApagarFoto(usuario.foto, function(err) {
         global.chat.RemoverUsuario(req.body.idUsuario);
         if (err)
             res.json({ sucesso: false, mensagem: 'Erro ao apagar a foto do usuário' });
         else
             res.json({ sucesso: true, mensagem: 'Foto apagada com sucesso' });
     });
-
     global.chat.UsuarioDesconectado(usuario.idUsuario);
 });
 
@@ -43,7 +48,7 @@ router.post('/AdicionarMensagem', (req, res) => {
     res.json({ sucesso: true, mensagem: 'Mensagem Adicionada com sucesso' });
 });
 
-function ApagarFoto(fotoUsuario, callback = function () { }) {
+function ApagarFoto(fotoUsuario, callback = function() {}) {
     const filePath = UPLOAD_PATH + fotoUsuario;
 
     fs.unlink(filePath, callback);
